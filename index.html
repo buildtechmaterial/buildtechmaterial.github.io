@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuildTech Material - Belanja Bahan Bangunan & Smart Estimator SNI</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="BuildTech Material menggabungkan kemudahan belanja bahan bangunan online dengan kecerdasan kalkulator teknik sipil standar SNI. Dapatkan estimasi kebutuhan dinding, kolom, balok, dan pondasi secara presisi dan instan.">
+  <meta name="keywords" content="estimator konstruksi, kalkulator bahan bangunan, hitung bata, hitung semen, hitung besi beton, sni konstruksi, belanja bahan bangunan, buildtech material">
+  <meta name="author" content="BuildTech Material Team">
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandDarkGreen: '#25671E',
+            brandForestGreen: '#48A111',
+            brandAmber: '#F2B50B',
+            brandOffWhite: '#F7F0F0',
+            darkText: '#1C291A',
+          },
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      background-color: #F7F0F0;
+      color: #1C291A;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F7F0F0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #48A111;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #25671E;
+    }
+    
+    /* Active Tab Transition */
+    .tab-transition {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Neon glow effect for active states */
+    .glow-amber {
+      box-shadow: 0 0 15px rgba(242, 181, 11, 0.4);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="bg-brandDarkGreen text-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <!-- Logo: House with green circuit element -->
+      <a href="#" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-1.5 transition-transform duration-300 group-hover:scale-110">
+          <!-- House SVG with circuit paths -->
+          <svg viewBox="0 0 100 100" class="w-full h-full text-brandDarkGreen" fill="currentColor">
+            <!-- Roof -->
+            <polygon points="50,10 90,45 80,45 80,85 20,85 20,45 10,45" fill="none" stroke="#25671E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Circuit Path 1 -->
+            <circle cx="35" cy="50" r="5" fill="#48A111"/>
+            <path d="M 35,50 L 50,50 L 50,70" fill="none" stroke="#48A111" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="50" cy="70" r="5" fill="#48A111"/>
+            <!-- Circuit Path 2 -->
+            <circle cx="65" cy="40" r="5" fill="#F2B50B"/>
+            <path d="M 65,40 L 50,40 L 50,25" fill="none" stroke="#F2B50B" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="50" cy="25" r="5" fill="#F2B50B"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-xl font-extrabold tracking-tight block leading-tight">BuildTech</span>
+          <span class="text-xs font-semibold tracking-widest uppercase text-brandAmber block -mt-1">Material</span>
+        </div>
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="#hero" class="hover:text-brandAmber transition-colors font-medium">Beranda</a>
+        <a href="#estimator" class="hover:text-brandAmber transition-colors font-medium flex items-center space-x-1">
+          <span class="inline-block w-2 h-2 rounded-full bg-brandAmber animate-pulse"></span>
+          <span>Smart Estimator</span>
+        </a>
+        <a href="#katalog" class="hover:text-brandAmber transition-colors font-medium">Katalog Bahan</a>
+        <a href="#about" class="hover:text-brandAmber transition-colors font-medium">Tentang Kami</a>
+      </nav>
+
+      <!-- Cart Trigger & Actions -->
+      <div class="flex items-center space-x-4">
+        <!-- Cart button -->
+        <button onclick="toggleCart()" class="relative p-2 bg-brandForestGreen hover:bg-opacity-90 rounded-full text-white transition-all hover:scale-105 duration-200" id="cartBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span id="cartCount" class="absolute -top-1 -right-1 bg-brandAmber text-darkText text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border border-white">0</span>
+        </button>
+        
+        <!-- Mobile Menu Toggle -->
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-white hover:text-brandAmber focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Navigation Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-brandDarkGreen border-t border-brandForestGreen px-4 py-3 space-y-2">
+      <a href="#hero" onclick="toggleMobileMenu()" class="block py-2 text-white hover:text-brandAmber transition-colors">Beranda</a>
+      <a href="#estimator" onclick="toggleMobileMenu()" class="block py-2 text-brandAmber font-semibold flex items-center space-x-2">
+        <span class="w-2 h-2 rounded-full bg-brandAmber animate-pulse"></span>
+        <span>Smart Estimator (SNI)</span>
+      </a>
+      <a href="#katalog" onclick="toggleMobileMenu()" class="block py-2 text-white hover:text-brandAmber transition-colors">Katalog Bahan</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-white hover:text-brandAmber transition-colors">Tentang Kami</a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="hero" class="relative bg-gradient-to-br from-brandDarkGreen via-[#1f5217] to-[#12330e] text-white py-16 md:py-24 overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+      <!-- Left text info -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center space-x-2 bg-brandForestGreen bg-opacity-30 border border-brandForestGreen rounded-full px-3 py-1 text-sm font-semibold text-brandAmber">
+          <span class="w-2.5 h-2.5 bg-brandAmber rounded-full animate-ping"></span>
+          <span>Teknologi Konstruksi Digital</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+          Belanja Bahan Bangunan <br>
+          <span class="text-brandAmber">Lebih Cerdas & Akurat</span>
+        </h1>
+        <p class="text-lg text-brandOffWhite text-opacity-90 max-w-xl">
+          BuildTech Material menghubungkan kalkulator estimasi teknik sipil (standar SNI) dengan kemudahan memesan material berkualitas tinggi. Hindari pemborosan biaya dan sisa material yang tidak berguna.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#estimator" class="px-6 py-3 bg-brandForestGreen hover:bg-opacity-95 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
+            Coba Smart Estimator
+          </a>
+          <a href="#katalog" class="px-6 py-3 bg-transparent border border-white hover:bg-white hover:text-brandDarkGreen font-bold rounded-lg transition-all duration-300">
+            Lihat Katalog Produk
+          </a>
+        </div>
+        
+        <!-- Standard badging -->
+        <div class="pt-6 flex items-center space-x-6 opacity-85 text-xs text-brandOffWhite">
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-brandAmber" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Kalkulasi Standar SNI</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5 text-brandAmber" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span>Margin Sampah (Waste Factor) 10%</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right graphic widget placeholder / micro visual -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="w-full max-w-sm bg-white bg-opacity-10 backdrop-blur-md border border-white border-opacity-20 rounded-2xl p-6 shadow-2xl relative">
+          <!-- Glassmorphism Card -->
+          <div class="absolute -top-4 -right-4 w-24 h-24 bg-brandAmber rounded-full filter blur-xl opacity-30 animate-pulse"></div>
+          <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-brandForestGreen rounded-full filter blur-xl opacity-20"></div>
+          
+          <h3 class="text-lg font-bold text-brandAmber flex items-center space-x-2 mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 11h.01M12 7h.01M9 11h.01M12 14h.01M15 11h.01M15 7h.01M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path></svg>
+            <span>Preview Kalkulator</span>
+          </h3>
+          <div class="space-y-3 text-sm text-brandOffWhite">
+            <div class="flex justify-between border-b border-white border-opacity-10 pb-2">
+              <span>Pekerjaan Dinding</span>
+              <span class="font-semibold text-white">30 m²</span>
+            </div>
+            <div class="flex justify-between border-b border-white border-opacity-10 pb-2">
+              <span>Bata Merah</span>
+              <span class="font-semibold text-white">2.100 Pcs</span>
+            </div>
+            <div class="flex justify-between border-b border-white border-opacity-10 pb-2">
+              <span>Semen (40kg)</span>
+              <span class="font-semibold text-white">9 Sak</span>
+            </div>
+            <div class="flex justify-between border-b border-white border-opacity-10 pb-2">
+              <span>Pasir Pasang</span>
+              <span class="font-semibold text-white">1,21 m³</span>
+            </div>
+            <div class="flex justify-between pt-2">
+              <span class="font-bold text-brandAmber">Estimasi Biaya:</span>
+              <span class="font-bold text-white text-base">Rp 3.023.800</span>
+            </div>
+          </div>
+          <div class="mt-5 w-full py-2.5 bg-brandAmber text-darkText font-extrabold rounded-lg flex items-center justify-center space-x-2 text-xs uppercase tracking-wider shadow-md hover:bg-opacity-95 transition-all">
+            <span>Teknologi Smart Estimator</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN SECTION (ESTIMATOR & CART) ==================== -->
+  <main class="flex-grow container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+      
+      <!-- COLUMN LEFT & CENTER: Smart Estimator UI (8 Cols) -->
+      <section id="estimator" class="xl:col-span-8 space-y-6">
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+          
+          <!-- Estimator Header Area -->
+          <div class="bg-brandDarkGreen px-6 py-5 text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold flex items-center space-x-2">
+                <span class="px-2 py-0.5 bg-brandAmber text-darkText text-xs font-extrabold rounded-md uppercase tracking-wider">Smart</span>
+                <span>Estimator Bahan Bangunan</span>
+              </h2>
+              <p class="text-sm text-brandOffWhite text-opacity-80 mt-1">Masukkan parameter konstruksi Anda untuk kalkulasi instan standar SNI.</p>
+            </div>
+            
+            <!-- Waste Factor Toggle -->
+            <div class="flex items-center space-x-3 bg-black bg-opacity-25 px-4 py-2 rounded-xl border border-white border-opacity-10 self-start md:self-auto">
+              <span class="text-xs font-semibold text-brandOffWhite">Waste Factor (+3% - 7%)</span>
+              <button onclick="toggleWasteFactor()" id="wasteToggleBtn" class="w-12 h-6 bg-gray-400 rounded-full p-0.5 transition-colors duration-300 focus:outline-none relative">
+                <div id="wasteToggleCircle" class="w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 translate-x-0"></div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tabs Nav -->
+          <div class="flex border-b border-gray-200 bg-gray-50">
+            <button onclick="switchTab('tab-dinding')" id="btn-tab-dinding" class="flex-1 py-4 px-4 text-center font-bold text-sm md:text-base border-b-2 border-brandForestGreen text-brandForestGreen transition-all duration-200 focus:outline-none flex items-center justify-center space-x-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+              <span>Pekerjaan Dinding</span>
+            </button>
+            <button onclick="switchTab('tab-kolom')" id="btn-tab-kolom" class="flex-1 py-4 px-4 text-center font-semibold text-gray-500 text-sm md:text-base border-b-2 border-transparent hover:text-brandForestGreen transition-all duration-200 focus:outline-none flex items-center justify-center space-x-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm0 8a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm0 8a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2z"></path></svg>
+              <span>Pekerjaan Kolom/Balok</span>
+            </button>
+            <button onclick="switchTab('tab-pondasi')" id="btn-tab-pondasi" class="flex-1 py-4 px-4 text-center font-semibold text-gray-500 text-sm md:text-base border-b-2 border-transparent hover:text-brandForestGreen transition-all duration-200 focus:outline-none flex items-center justify-center space-x-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+              <span>Pekerjaan Pondasi</span>
+            </button>
+          </div>
+
+          <!-- Tab Contents Grid -->
+          <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- LEFT AREA: Input Forms -->
+            <div class="space-y-6">
+              
+              <!-- Tab 1: Dinding -->
+              <div id="tab-dinding" class="tab-content space-y-4">
+                <h3 class="text-base font-bold text-darkText border-b border-gray-100 pb-2 flex items-center justify-between">
+                  <span>Parameter Dinding (Bata Merah)</span>
+                  <span class="text-xs font-normal text-gray-500">Acuan SNI 1/2 Bata, Campuran 1:4</span>
+                </h3>
+                
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Panjang Dinding (meter)</label>
+                  <input type="number" id="dinding-panjang" value="10" min="0" step="0.1" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                </div>
+                
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Tinggi Dinding (meter)</label>
+                  <input type="number" id="dinding-tinggi" value="3" min="0" step="0.1" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                </div>
+                
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Luas Bukaan / Pintu / Jendela (m²)</label>
+                  <input type="number" id="dinding-bukaan" value="2" min="0" step="0.05" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                  <p class="text-xs text-gray-500 mt-1">Luas area pintu atau jendela yang tidak dipasangi bata.</p>
+                </div>
+              </div>
+
+              <!-- Tab 2: Kolom/Balok -->
+              <div id="tab-kolom" class="tab-content hidden space-y-4">
+                <h3 class="text-base font-bold text-darkText border-b border-gray-100 pb-2 flex items-center justify-between">
+                  <span>Parameter Kolom / Balok Beton</span>
+                  <span class="text-xs font-normal text-gray-500">Mutu Standar, Campuran 1:2:3</span>
+                </h3>
+                
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Panjang / Tinggi Struktur (meter)</label>
+                  <input type="number" id="kolom-panjang" value="4" min="0" step="0.1" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Lebar Penampang (m)</label>
+                    <input type="number" id="kolom-lebar" value="0.2" min="0.05" step="0.05" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Tinggi Penampang (m)</label>
+                    <input type="number" id="kolom-tinggi" value="0.2" min="0.05" step="0.05" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Besi Utama (Diameter)</label>
+                    <select id="kolom-besi-utama-dia" onchange="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                      <option value="8">D8</option>
+                      <option value="10">D10</option>
+                      <option value="12" selected>D12</option>
+                      <option value="13">D13</option>
+                      <option value="16">D16</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Jumlah Besi Utama</label>
+                    <input type="number" id="kolom-besi-utama-jumlah" value="4" min="2" max="24" step="1" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Sengkang (Diameter)</label>
+                    <select id="kolom-sengkang-dia" onchange="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                      <option value="6" selected>D6</option>
+                      <option value="8">D8</option>
+                      <option value="10">D10</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Jarak Sengkang (meter)</label>
+                    <input type="number" id="kolom-sengkang-jarak" value="0.15" min="0.05" max="0.5" step="0.01" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 3: Pondasi -->
+              <div id="tab-pondasi" class="tab-content hidden space-y-4">
+                <h3 class="text-base font-bold text-darkText border-b border-gray-100 pb-2 flex items-center justify-between">
+                  <span>Parameter Pondasi Batu Kali</span>
+                  <span class="text-xs font-normal text-gray-500">Campuran Semen Pasir 1:4</span>
+                </h3>
+                
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Panjang Pondasi (meter)</label>
+                  <input type="number" id="pondasi-panjang" value="15" min="0" step="0.1" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Lebar Atas (meter)</label>
+                    <input type="number" id="pondasi-lebar-atas" value="0.3" min="0.1" step="0.05" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Lebar Bawah (meter)</label>
+                    <input type="number" id="pondasi-lebar-bawah" value="0.6" min="0.1" step="0.05" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Tinggi Pondasi (meter)</label>
+                  <input type="number" id="pondasi-tinggi" value="0.8" min="0.1" step="0.05" oninput="calculateEstimates()" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandForestGreen focus:border-transparent outline-none transition-all font-semibold text-darkText">
+                </div>
+              </div>
+              
+            </div>
+
+            <!-- RIGHT AREA: Instant Calculations & Material breakdown -->
+            <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <h4 class="text-sm font-bold text-gray-700 uppercase tracking-wider">Hasil Estimasi</h4>
+                  <!-- Status badge -->
+                  <span id="wasteStatusBadge" class="px-2 py-0.5 text-xs font-bold rounded-md bg-gray-200 text-gray-600 transition-colors">
+                    Waste Off
+                  </span>
+                </div>
+                
+                <!-- Output metrics listing -->
+                <div class="space-y-3" id="outputMaterialList">
+                  <!-- JS will populate rows dynamically -->
+                </div>
+              </div>
+
+              <!-- Action buttons & Summary footer -->
+              <div class="mt-6 pt-4 border-t border-gray-200 space-y-4">
+                <div class="flex justify-between items-end">
+                  <div>
+                    <span class="text-xs text-gray-500 block">Subtotal Pekerjaan</span>
+                    <span id="outputSubtotalText" class="text-2xl font-extrabold text-brandForestGreen">Rp 0</span>
+                  </div>
+                  <!-- Logistics recommendation -->
+                  <div class="text-right max-w-[50%]">
+                    <span class="text-xs text-gray-500 block">Rekomendasi Logistik:</span>
+                    <span id="outputLogisticsText" class="text-xs font-bold text-darkText block leading-tight">-</span>
+                  </div>
+                </div>
+
+                <button onclick="addEstimateToCart()" class="w-full py-3 bg-brandForestGreen hover:bg-opacity-95 text-white font-bold rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:shadow-lg focus:outline-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Masukkan ke Keranjang</span>
+                </button>
+              </div>
+              
+            </div>
+
+          </div>
+          
+        </div>
+        
+        <!-- About Section on Main Column -->
+        <article id="about" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 space-y-4">
+          <h2 class="text-xl font-bold text-brandDarkGreen border-b border-gray-100 pb-3 flex items-center space-x-2">
+            <svg class="w-6 h-6 text-brandForestGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>Kecerdasan Teknik Sipil di Balik Estimasi</span>
+          </h2>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Estimator cerdas kami menggunakan koefisien analisis harga satuan pekerjaan (AHSP) yang berpatokan pada standar <strong>SNI (Standar Nasional Indonesia)</strong>. Setiap input dikonversikan secara matematis untuk menjamin keakuratan kebutuhan bahan di lapangan.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 bg-brandOffWhite rounded-xl border border-gray-200">
+              <span class="block font-bold text-sm text-brandDarkGreen">Dinding Bata Merah</span>
+              <p class="text-xs text-gray-600 mt-1">Koefisien per m²: 70 buah bata merah, 11.5 kg semen (campuran 1:4), 0.043 m³ pasir pasang.</p>
+            </div>
+            <div class="p-4 bg-brandOffWhite rounded-xl border border-gray-200">
+              <span class="block font-bold text-sm text-brandDarkGreen">Kolom/Balok Beton</span>
+              <p class="text-xs text-gray-600 mt-1">Koefisien per m³: 326 kg semen (1:2:3), 0.54 m³ pasir beton, 0.76 m³ kerikil, serta berat penulangan besi beton SNI.</p>
+            </div>
+            <div class="p-4 bg-brandOffWhite rounded-xl border border-gray-200">
+              <span class="block font-bold text-sm text-brandDarkGreen">Pondasi Batu Kali</span>
+              <p class="text-xs text-gray-600 mt-1">Koefisien per m³: 1.2 m³ batu belah, 163 kg semen (1:4), dan 0.52 m³ pasir pasang.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- COLUMN RIGHT: Sidebar Cart & E-commerce Summary (4 Cols) -->
+      <section class="xl:col-span-4 space-y-6">
+        
+        <!-- Cart Summary Widget -->
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden" id="cartSection">
+          <div class="bg-brandDarkGreen px-5 py-4 text-white flex items-center justify-between">
+            <h3 class="font-bold text-lg flex items-center space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brandAmber" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span>Keranjang Belanja</span>
+            </h3>
+            <button onclick="clearCart()" class="text-xs text-brandOffWhite hover:text-brandAmber font-medium transition-colors">Kosongkan</button>
+          </div>
+          
+          <div class="p-5">
+            <!-- Cart Items List -->
+            <div id="cartItemsList" class="space-y-4 max-h-72 overflow-y-auto pr-1">
+              <!-- JS will inject items here -->
+              <div class="text-center py-8 text-gray-500 text-sm">
+                <svg class="w-12 h-12 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                <span>Keranjang masih kosong. Gunakan estimator di samping atau pilih katalog di bawah.</span>
+              </div>
+            </div>
+            
+            <!-- Price Summary -->
+            <div class="mt-6 pt-4 border-t border-gray-200 space-y-2 text-sm text-gray-700">
+              <div class="flex justify-between">
+                <span>Subtotal Barang:</span>
+                <span id="cartSubtotal" class="font-bold">Rp 0</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Pajak (PPN 11%):</span>
+                <span id="cartTax" class="font-bold">Rp 0</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>Metode Pengiriman:</span>
+                <select id="cartShippingSelect" onchange="updateCartUI()" class="bg-gray-100 border border-gray-300 text-xs rounded-lg px-2 py-1 focus:ring-1 focus:ring-brandForestGreen outline-none text-darkText font-medium">
+                  <option value="ambil">Ambil Sendiri (Rp 0)</option>
+                  <option value="pickup" selected>Layanan Pick-up (Rp 150.000)</option>
+                  <option value="truk">Layanan Truk (Rp 350.000)</option>
+                </select>
+              </div>
+              <div class="flex justify-between text-base font-extrabold text-brandDarkGreen pt-2 border-t border-dashed border-gray-200">
+                <span>Total Belanja:</span>
+                <span id="cartTotal">Rp 0</span>
+              </div>
+            </div>
+
+            <!-- Checkout Button -->
+            <button onclick="triggerCheckout()" id="checkoutBtn" disabled class="w-full mt-5 py-3 bg-gray-300 text-gray-500 cursor-not-allowed font-bold rounded-xl flex items-center justify-center space-x-2 transition-all shadow-sm">
+              <span>Checkout Pembayaran</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Live Market Prices Indicator (E-Commerce Database Lookup) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3">
+          <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wider">Database Harga E-Commerce</h4>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-gray-600">Bata Merah Standar</span>
+              <span class="font-semibold text-darkText">Rp 1.000 / Pcs</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-gray-600">Semen Tiga Roda (40kg)</span>
+              <span class="font-semibold text-darkText">Rp 65.000 / Sak</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-gray-600">Pasir Pasang Curah</span>
+              <span class="font-semibold text-darkText">Rp 280.000 / m³</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-gray-100">
+              <span class="text-gray-600">Besi Beton D12 (12m)</span>
+              <span class="font-semibold text-darkText">Rp 85.000 / Batang</span>
+            </div>
+          </div>
+          <p class="text-[10px] text-gray-400 italic">Harga dapat berubah sewaktu-waktu sesuai fluktuasi pasar material lokal.</p>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- ==================== E-COMMERCE PRODUCTS CATALOG ==================== -->
+    <section id="katalog" class="mt-16 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-gray-200 pb-4">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-brandDarkGreen">Katalog Bahan Bangunan Resmi</h2>
+          <p class="text-sm text-gray-600 mt-1">Tambahkan bahan konstruksi pelengkap atau beli langsung secara grosir.</p>
+        </div>
+        <!-- Filter controls -->
+        <div class="flex space-x-2 mt-4 md:mt-0 overflow-x-auto py-1">
+          <button onclick="filterCatalog('semua')" id="btn-filter-semua" class="px-4 py-1.5 rounded-full text-xs font-bold bg-brandForestGreen text-white shadow-sm transition-all focus:outline-none">Semua</button>
+          <button onclick="filterCatalog('struktur')" id="btn-filter-struktur" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-gray-600 hover:text-brandForestGreen border border-gray-200 transition-all focus:outline-none">Semen & Bata</button>
+          <button onclick="filterCatalog('curah')" id="btn-filter-curah" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-gray-600 hover:text-brandForestGreen border border-gray-200 transition-all focus:outline-none">Agregat/Curah</button>
+          <button onclick="filterCatalog('besi')" id="btn-filter-besi" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-gray-600 hover:text-brandForestGreen border border-gray-200 transition-all focus:outline-none">Besi & Kawat</button>
+        </div>
+      </div>
+
+      <!-- Catalog Grid -->
+      <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+        <!-- Products will be generated dynamically by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-brandDarkGreen text-white mt-20 py-12 border-t border-brandForestGreen">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <!-- Logo and About -->
+      <div class="space-y-4">
+        <a href="#" class="flex items-center space-x-2">
+          <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center p-1">
+            <svg viewBox="0 0 100 100" class="w-full h-full text-brandDarkGreen" fill="currentColor">
+              <polygon points="50,10 90,45 80,45 80,85 20,85 20,45 10,45" fill="none" stroke="#25671E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="35" cy="50" r="5" fill="#48A111"/>
+              <path d="M 35,50 L 50,50 L 50,70" fill="none" stroke="#48A111" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="50" cy="70" r="5" fill="#48A111"/>
+            </svg>
+          </div>
+          <span class="text-lg font-bold tracking-tight">BuildTech <span class="text-brandAmber">Material</span></span>
+        </a>
+        <p class="text-xs text-brandOffWhite text-opacity-85 leading-relaxed">
+          Pionir platform retail bahan bangunan pintar yang memadukan keandalan belanja dengan perhitungan struktur bersertifikasi teknis.
+        </p>
+      </div>
+
+      <!-- Standards & Quality -->
+      <div>
+        <h4 class="font-bold text-sm text-brandAmber uppercase tracking-wider mb-4">Standar Konstruksi</h4>
+        <ul class="text-xs text-brandOffWhite text-opacity-85 space-y-2">
+          <li>• SNI 15-2049-2004 (Semen Portland)</li>
+          <li>• SNI 03-6861.1-2002 (Spesifikasi Bahan Pasir)</li>
+          <li>• SNI 2052:2017 (Baja Tulangan Beton)</li>
+          <li>• Pedoman Teknis Rumah Tahan Gempa</li>
+        </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-bold text-sm text-brandAmber uppercase tracking-wider mb-4">Navigasi Cepat</h4>
+        <ul class="text-xs text-brandOffWhite text-opacity-85 space-y-2">
+          <li><a href="#hero" class="hover:text-brandAmber transition-colors">• Beranda Utama</a></li>
+          <li><a href="#estimator" class="hover:text-brandAmber transition-colors">• Smart Estimator</a></li>
+          <li><a href="#katalog" class="hover:text-brandAmber transition-colors">• Katalog Bahan Bangunan</a></li>
+          <li><a href="#about" class="hover:text-brandAmber transition-colors">• Standar Teknik Sipil</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal and Contact -->
+      <div>
+        <h4 class="font-bold text-sm text-brandAmber uppercase tracking-wider mb-4">Kontak & Bantuan</h4>
+        <p class="text-xs text-brandOffWhite text-opacity-85">
+          Jl. Jenderal Sudirman Kav. 21, Jakarta Selatan<br>
+          Email: support@buildtechmaterial.co.id<br>
+          Telp: (021) 8080-9090
+        </p>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="container mx-auto px-4 mt-8 pt-6 border-t border-white border-opacity-10 text-center text-xs text-brandOffWhite text-opacity-70 flex flex-col md:flex-row justify-between items-center gap-4">
+      <span>&copy; 2026 BuildTech Material. Hak Cipta Dilindungi Undang-Undang.</span>
+      <div class="flex space-x-4">
+        <a href="#" class="hover:text-brandAmber">Kebijakan Privasi</a>
+        <a href="#" class="hover:text-brandAmber">Syarat & Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CHECKOUT MODAL ==================== -->
+  <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+        <h3 class="text-lg font-bold text-brandDarkGreen flex items-center space-x-2">
+          <svg class="w-6 h-6 text-brandForestGreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>Konfirmasi Transaksi</span>
+        </h3>
+        <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      
+      <form id="checkoutForm" onsubmit="submitOrder(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nama Lengkap Penerima</label>
+          <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-brandForestGreen outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nomor Telepon/WhatsApp</label>
+          <input type="tel" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-brandForestGreen outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Alamat Pengiriman Proyek</label>
+          <textarea required rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-brandForestGreen outline-none"></textarea>
+        </div>
+        
+        <div class="bg-brandOffWhite rounded-xl p-3 border border-gray-200 space-y-1.5 text-xs">
+          <div class="flex justify-between">
+            <span>Metode Pengiriman:</span>
+            <span id="modalShippingType" class="font-semibold text-darkText">-</span>
+          </div>
+          <div class="flex justify-between font-bold text-sm text-brandDarkGreen pt-1.5 border-t border-gray-200">
+            <span>Total Bayar:</span>
+            <span id="modalTotalPay">-</span>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-brandAmber text-darkText font-extrabold rounded-xl shadow-md hover:bg-opacity-90 transition-all flex items-center justify-center space-x-2">
+          <span>Kirim Pesanan Via WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // --- DATABASE HARGA E-COMMERCE (MOCK) ---
+    const MATERIAL_DB = {
+      bata_merah: { id: 'bata_merah', name: 'Bata Merah Standar SNI', price: 1000, unit: 'Pcs', category: 'struktur', image: 'https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&q=80&w=300' },
+      semen_40kg: { id: 'semen_40kg', name: 'Semen Portland (40kg)', price: 65000, unit: 'Sak', category: 'struktur', image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=300' },
+      pasir_pasang: { id: 'pasir_pasang', name: 'Pasir Pasang Curah', price: 280000, unit: 'm³', category: 'curah', image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80&w=300' },
+      pasir_beton: { id: 'pasir_beton', name: 'Pasir Beton Curah', price: 320000, unit: 'm³', category: 'curah', image: 'https://images.unsplash.com/photo-1504159506876-f8338247a14a?auto=format&fit=crop&q=80&w=300' },
+      kerikil_split: { id: 'kerikil_split', name: 'Kerikil Split 2/3', price: 350000, unit: 'm³', category: 'curah', image: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&q=80&w=300' },
+      batu_belah: { id: 'batu_belah', name: 'Batu Kali/Batu Belah', price: 300000, unit: 'm³', category: 'curah', image: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&q=80&w=300' },
+      besi_d6: { id: 'besi_d6', name: 'Besi Beton Polos D6 (12m)', price: 28000, unit: 'Batang', category: 'besi', image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=300' },
+      besi_d8: { id: 'besi_d8', name: 'Besi Beton Polos D8 (12m)', price: 42000, unit: 'Batang', category: 'besi', image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=300' },
+      besi_d10: { id: 'besi_d10', name: 'Besi Beton Polos D10 (12m)', price: 60000, unit: 'Batang', category: 'besi', image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=300' },
+      besi_d12: { id: 'besi_d12', name: 'Besi Beton Ulir D12 (12m)', price: 85000, unit: 'Batang', category: 'besi', image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=300' },
+      besi_d13: { id: 'besi_d13', name: 'Besi Beton Ulir D13 (12m)', price: 98000, unit: 'Batang', category: 'besi', image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=300' },
+      besi_d16: { id: 'besi_d16', name: 'Besi Beton Ulir D16 (12m)', price: 150000, unit: 'Batang', category: 'besi', image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=300' },
+      kawat_bendrat: { id: 'kawat_bendrat', name: 'Kawat Bendrat Beton', price: 25000, unit: 'Kg', category: 'besi', image: 'https://images.unsplash.com/photo-1530124560072-aab815047576?auto=format&fit=crop&q=80&w=300' }
+    };
+
+    // --- WEIGHT TABLE FOR STEEL SNI (kg per meter) ---
+    const STEEL_WEIGHTS = {
+      6: 0.222,
+      8: 0.395,
+      10: 0.617,
+      12: 0.888,
+      13: 1.042,
+      16: 1.578
+    };
+
+    // --- STATE VARIABLES ---
+    let activeTab = 'tab-dinding';
+    let isWasteFactorOn = false;
+    let currentEstimations = {}; // Holds current calculated materials
+    let cart = []; // E-commerce shopping cart
+
+    // --- UNIT TEST SUITE FOR TECHNICAL VALIDATION ---
+    function runUnitTests() {
+      console.log("%c=== RUNNING BUILDTECH ESTIMATOR UNIT TESTS ===", "color: #48A111; font-weight: bold; font-size: 14px;");
+      let testsPassed = 0;
+      let totalTests = 0;
+
+      function assert(name, condition, details) {
+        totalTests++;
+        if (condition) {
+          testsPassed++;
+          console.log(`%c[PASS] ${name}`, "color: #48A111; font-weight: bold;");
+        } else {
+          console.error(`[FAIL] ${name}\nDetails:`, details);
+        }
+      }
+
+      // Test 1: Dinding Calculation (No Waste)
+      try {
+        isWasteFactorOn = false;
+        activeTab = 'tab-dinding';
+        
+        document.getElementById('dinding-panjang').value = 10;
+        document.getElementById('dinding-tinggi').value = 3;
+        document.getElementById('dinding-bukaan').value = 2;
+        
+        calculateEstimates();
+        
+        assert("Dinding Bata Merah Qty (No Waste)", currentEstimations['bata_merah'].qty === 1960, currentEstimations['bata_merah']);
+        assert("Dinding Semen Qty (No Waste)", currentEstimations['semen_40kg'].qty === 9, currentEstimations['semen_40kg']);
+        assert("Dinding Pasir Qty (No Waste)", currentEstimations['pasir_pasang'].qty === 1.204, currentEstimations['pasir_pasang']);
+      } catch (e) {
+        assert("Dinding (No Waste) Error", false, e);
+      }
+
+      // Test 2: Dinding Calculation (With Waste)
+      try {
+        isWasteFactorOn = true;
+        calculateEstimates();
+        
+        assert("Dinding Bata Merah Qty (With Waste)", currentEstimations['bata_merah'].qty === 2058, currentEstimations['bata_merah']);
+        assert("Dinding Semen Qty (With Waste)", currentEstimations['semen_40kg'].qty === 9, currentEstimations['semen_40kg']);
+        assert("Dinding Pasir Qty (With Waste)", currentEstimations['pasir_pasang'].qty === 1.264, currentEstimations['pasir_pasang']);
+      } catch (e) {
+        assert("Dinding (With Waste) Error", false, e);
+      }
+
+      // Test 3: Pondasi Calculation (No Waste)
+      try {
+        isWasteFactorOn = false;
+        activeTab = 'tab-pondasi';
+        
+        document.getElementById('pondasi-panjang').value = 15;
+        document.getElementById('pondasi-lebar-atas').value = 0.3;
+        document.getElementById('pondasi-lebar-bawah').value = 0.6;
+        document.getElementById('pondasi-tinggi').value = 0.8;
+        
+        calculateEstimates();
+        
+        assert("Pondasi Batu Kali Qty (No Waste)", currentEstimations['batu_belah'].qty === 6.48, currentEstimations['batu_belah']);
+        assert("Pondasi Semen Qty (No Waste)", currentEstimations['semen_40kg'].qty === 23, currentEstimations['semen_40kg']);
+        assert("Pondasi Pasir Qty (No Waste)", currentEstimations['pasir_pasang'].qty === 2.808, currentEstimations['pasir_pasang']);
+      } catch (e) {
+        assert("Pondasi (No Waste) Error", false, e);
+      }
+
+      // Show Test Results Toast
+      const toast = document.createElement('div');
+      toast.className = "fixed bottom-5 left-5 z-[100] px-4 py-3 rounded-xl shadow-xl flex items-center space-x-3 text-white text-xs font-bold transition-all duration-500 " + 
+        (testsPassed === totalTests ? "bg-brandForestGreen" : "bg-red-650");
+      toast.innerHTML = `
+        <div class="w-4 h-4 rounded-full bg-white flex items-center justify-center text-darkText font-extrabold">${testsPassed === totalTests ? "✓" : "✗"}</div>
+        <div>
+          <span class="block">Unit Test Suite ${testsPassed === totalTests ? "Passed" : "Failed"}</span>
+          <span class="text-[10px] text-opacity-80 block">${testsPassed}/${totalTests} tests succeeded.</span>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      
+      // Reset to original values for user experience
+      isWasteFactorOn = false;
+      activeTab = 'tab-dinding';
+      document.getElementById('dinding-panjang').value = 10;
+      document.getElementById('dinding-tinggi').value = 3;
+      document.getElementById('dinding-bukaan').value = 2;
+      document.getElementById('pondasi-panjang').value = 15;
+      document.getElementById('pondasi-lebar-atas').value = 0.3;
+      document.getElementById('pondasi-lebar-bawah').value = 0.6;
+      document.getElementById('pondasi-tinggi').value = 0.8;
+      
+      calculateEstimates();
+    }
+
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      buildCatalog();
+      calculateEstimates();
+      updateCartUI();
+      
+      // Run tests if ?test=true is in URL
+      if (window.location.search.includes('test=true')) {
+        runUnitTests();
+      }
+    });
+
+    // --- UI INTERACTION FUNCTIONS ---
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    function switchTab(tabId) {
+      activeTab = tabId;
+      
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      // Show active tab
+      document.getElementById(tabId).classList.remove('hidden');
+      
+      // Reset button styles
+      ['btn-tab-dinding', 'btn-tab-kolom', 'btn-tab-pondasi'].forEach(id => {
+        const btn = document.getElementById(id);
+        btn.className = "flex-1 py-4 px-4 text-center font-semibold text-gray-500 text-sm md:text-base border-b-2 border-transparent hover:text-brandForestGreen transition-all duration-200 focus:outline-none flex items-center justify-center space-x-2";
+      });
+      
+      // Apply active style
+      const activeBtn = document.getElementById('btn-' + tabId);
+      activeBtn.className = "flex-1 py-4 px-4 text-center font-bold text-sm md:text-base border-b-2 border-brandForestGreen text-brandForestGreen transition-all duration-200 focus:outline-none flex items-center justify-center space-x-2";
+      
+      calculateEstimates();
+    }
+
+    function toggleWasteFactor() {
+      isWasteFactorOn = !isWasteFactorOn;
+      const toggleCircle = document.getElementById('wasteToggleCircle');
+      const toggleBtn = document.getElementById('wasteToggleBtn');
+      const statusBadge = document.getElementById('wasteStatusBadge');
+      
+      if (isWasteFactorOn) {
+        toggleCircle.classList.replace('translate-x-0', 'translate-x-6');
+        toggleBtn.classList.replace('bg-gray-400', 'bg-brandForestGreen');
+        statusBadge.innerText = "Waste ON (+3% - 7%)";
+        statusBadge.className = "px-2 py-0.5 text-xs font-bold rounded-md bg-brandAmber text-darkText glow-amber transition-colors";
+      } else {
+        toggleCircle.classList.replace('translate-x-6', 'translate-x-0');
+        toggleBtn.classList.replace('bg-brandForestGreen', 'bg-gray-400');
+        statusBadge.innerText = "Waste OFF";
+        statusBadge.className = "px-2 py-0.5 text-xs font-bold rounded-md bg-gray-200 text-gray-600 transition-colors";
+      }
+      
+      calculateEstimates();
+    }
+
+    // Format numbers as Indonesian Rupiah
+    function formatRupiah(num) {
+      return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+    }
+
+    // Format decimals smoothly
+    function formatDecimal(num) {
+      return parseFloat(num.toFixed(3));
+    }
+
+    // --- ESTIMATOR MATHEMATICS & LOGIC ---
+    function calculateEstimates() {
+      currentEstimations = {};
+      let subtotal = 0;
+      let totalVolumeCurah = 0; // tracking for logistics
+      
+      // WASTE FACTORS DEFINITIONS
+      const wasteFactors = {
+        bata: isWasteFactorOn ? 1.05 : 1.0,
+        semen: isWasteFactorOn ? 1.03 : 1.0,
+        agregat: isWasteFactorOn ? 1.05 : 1.0, // pasir, kerikil, batu
+        besi: isWasteFactorOn ? 1.07 : 1.0
+      };
+
+      if (activeTab === 'tab-dinding') {
+        const panjang = parseFloat(document.getElementById('dinding-panjang').value) || 0;
+        const tinggi = parseFloat(document.getElementById('dinding-tinggi').value) || 0;
+        const bukaan = parseFloat(document.getElementById('dinding-bukaan').value) || 0;
+        
+        // Luas Bersih
+        const luasBersih = Math.max(0, (panjang * tinggi) - bukaan);
+        
+        // Rumus SNI Koefisien
+        const rawBata = luasBersih * 70 * wasteFactors.bata;
+        const rawSemen = ((luasBersih * 11.5) / 40) * wasteFactors.semen;
+        const rawPasir = luasBersih * 0.043 * wasteFactors.agregat;
+        
+        // Pembulatan & Biaya
+        const qtyBata = Math.ceil(rawBata);
+        const qtySemen = Math.ceil(rawSemen);
+        const qtyPasir = formatDecimal(rawPasir);
+        
+        currentEstimations['bata_merah'] = { qty: qtyBata, db: MATERIAL_DB.bata_merah };
+        currentEstimations['semen_40kg'] = { qty: qtySemen, db: MATERIAL_DB.semen_40kg };
+        currentEstimations['pasir_pasang'] = { qty: qtyPasir, db: MATERIAL_DB.pasir_pasang };
+        
+        totalVolumeCurah = qtyPasir;
+        
+      } else if (activeTab === 'tab-kolom') {
+        const panjang = parseFloat(document.getElementById('kolom-panjang').value) || 0;
+        const lebar = parseFloat(document.getElementById('kolom-lebar').value) || 0;
+        const tinggiStr = parseFloat(document.getElementById('kolom-tinggi').value) || 0;
+        const besiUtamaDia = parseInt(document.getElementById('kolom-besi-utama-dia').value) || 12;
+        const besiUtamaJml = parseInt(document.getElementById('kolom-besi-utama-jumlah').value) || 4;
+        const sengkangDia = parseInt(document.getElementById('kolom-sengkang-dia').value) || 6;
+        const sengkangJrk = parseFloat(document.getElementById('kolom-sengkang-jarak').value) || 0.15;
+        
+        // Volume Cor
+        const volumeCor = panjang * lebar * tinggiStr;
+        
+        // 1. Cor Bahan
+        const rawSemen = ((volumeCor * 326) / 40) * wasteFactors.semen;
+        const rawPasir = volumeCor * 0.54 * wasteFactors.agregat;
+        const rawKerikil = volumeCor * 0.76 * wasteFactors.agregat;
+        
+        const qtySemen = Math.ceil(rawSemen);
+        const qtyPasir = formatDecimal(rawPasir);
+        const qtyKerikil = formatDecimal(rawKerikil);
+        
+        // 2. Besi Utama (Batang 12m)
+        const totalPanjangBesiUtama = panjang * besiUtamaJml * wasteFactors.besi;
+        const qtyBesiUtama = Math.ceil(totalPanjangBesiUtama / 12);
+        
+        // 3. Besi Sengkang/Begel (Perimeter cincin dengan selimut beton 2.5cm & hook 15cm)
+        const selimutBeton = 0.025; // 2.5cm
+        const hookLength = 0.15; // 15cm
+        const cincinLebar = Math.max(0.02, lebar - (selimutBeton * 2));
+        const cincinTinggi = Math.max(0.02, tinggiStr - (selimutBeton * 2));
+        const kelilingCincin = (2 * (cincinLebar + cincinTinggi)) + hookLength;
+        
+        const jumlahSengkang = sengkangJrk > 0 ? (panjang / sengkangJrk) : 0;
+        const totalPanjangSengkang = kelilingCincin * jumlahSengkang * wasteFactors.besi;
+        const qtyBesiSengkang = Math.ceil(totalPanjangSengkang / 12);
+        
+        // 4. Kawat Bendrat (1.5% dari berat total besi)
+        const beratUtamaPerMeter = STEEL_WEIGHTS[besiUtamaDia] || 0.888;
+        const beratSengkangPerMeter = STEEL_WEIGHTS[sengkangDia] || 0.222;
+        
+        const totalBeratBesi = (totalPanjangBesiUtama * beratUtamaPerMeter) + (totalPanjangSengkang * beratSengkangPerMeter);
+        const rawKawat = totalBeratBesi * 0.015;
+        const qtyKawat = Math.ceil(rawKawat); // pembulatan kg ke atas
+        
+        // Mapping Besi Utama DB lookup
+        const besiUtamaKey = 'besi_d' + besiUtamaDia;
+        const besiSengkangKey = 'besi_d' + sengkangDia;
+        
+        currentEstimations['semen_40kg'] = { qty: qtySemen, db: MATERIAL_DB.semen_40kg };
+        currentEstimations['pasir_beton'] = { qty: qtyPasir, db: MATERIAL_DB.pasir_beton };
+        currentEstimations['kerikil_split'] = { qty: qtyKerikil, db: MATERIAL_DB.kerikil_split };
+        currentEstimations[besiUtamaKey] = { qty: qtyBesiUtama, db: MATERIAL_DB[besiUtamaKey] };
+        currentEstimations[besiSengkangKey] = { 
+          qty: (currentEstimations[besiSengkangKey]?.qty || 0) + qtyBesiSengkang, 
+          db: MATERIAL_DB[besiSengkangKey] 
+        };
+        currentEstimations['kawat_bendrat'] = { qty: qtyKawat, db: MATERIAL_DB.kawat_bendrat };
+        
+        totalVolumeCurah = qtyPasir + qtyKerikil;
+        
+      } else if (activeTab === 'tab-pondasi') {
+        const panjang = parseFloat(document.getElementById('pondasi-panjang').value) || 0;
+        const lebarAtas = parseFloat(document.getElementById('pondasi-lebar-atas').value) || 0;
+        const lebarBawah = parseFloat(document.getElementById('pondasi-lebar-bawah').value) || 0;
+        const tinggi = parseFloat(document.getElementById('pondasi-tinggi').value) || 0;
+        
+        // Volume Trapesium Pondasi
+        const volume = ((lebarAtas + lebarBawah) / 2) * tinggi * panjang;
+        
+        // Rumus SNI Koefisien
+        const rawBatu = volume * 1.2 * wasteFactors.agregat;
+        const rawSemen = ((volume * 163) / 40) * wasteFactors.semen;
+        const rawPasir = volume * 0.52 * wasteFactors.agregat;
+        
+        const qtyBatu = formatDecimal(rawBatu);
+        const qtySemen = Math.ceil(rawSemen);
+        const qtyPasir = formatDecimal(rawPasir);
+        
+        currentEstimations['batu_belah'] = { qty: qtyBatu, db: MATERIAL_DB.batu_belah };
+        currentEstimations['semen_40kg'] = { qty: qtySemen, db: MATERIAL_DB.semen_40kg };
+        currentEstimations['pasir_pasang'] = { qty: qtyPasir, db: MATERIAL_DB.pasir_pasang };
+        
+        totalVolumeCurah = qtyBatu + qtyPasir;
+      }
+
+      // RENDER ESTIMATION RESULTS UI
+      const listContainer = document.getElementById('outputMaterialList');
+      listContainer.innerHTML = '';
+      
+      for (const [key, item] of Object.entries(currentEstimations)) {
+        const itemCost = item.qty * item.db.price;
+        subtotal += itemCost;
+        
+        const itemRow = document.createElement('div');
+        itemRow.className = "flex justify-between items-center py-2.5 border-b border-gray-100 last:border-b-0 text-sm";
+        itemRow.innerHTML = `
+          <div>
+            <span class="font-bold text-darkText block">${item.db.name}</span>
+            <span class="text-xs text-gray-500">${item.qty} ${item.db.unit} × ${formatRupiah(item.db.price)}</span>
+          </div>
+          <span class="font-bold text-darkText">${formatRupiah(itemCost)}</span>
+        `;
+        listContainer.appendChild(itemRow);
+      }
+      
+      // Update Subtotal Text
+      document.getElementById('outputSubtotalText').innerText = formatRupiah(subtotal);
+      
+      // Update Logistics Recommendation
+      const logisticsText = document.getElementById('outputLogisticsText');
+      if (totalVolumeCurah > 0) {
+        if (totalVolumeCurah <= 1.0) {
+          logisticsText.innerText = "1 Pick-up (~1 m³)";
+        } else if (totalVolumeCurah <= 3.5) {
+          logisticsText.innerText = "1 Truk Kecil (~3.5 m³)";
+        } else if (totalVolumeCurah <= 7.5) {
+          logisticsText.innerText = "1 Truk Besar / Fuso (~7.5 m³)";
+        } else {
+          const totalTruk = Math.ceil(totalVolumeCurah / 7.5);
+          logisticsText.innerText = `${totalTruk} Truk Fuso (~${totalVolumeCurah.toFixed(1)} m³)`;
+        }
+      } else {
+        logisticsText.innerText = "Kurir Motor / Ambil Sendiri";
+      }
+    }
+
+    // --- CART LOGIC & FUNCTIONS ---
+    function updateCartUI() {
+      const cartContainer = document.getElementById('cartItemsList');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const cartCount = document.getElementById('cartCount');
+      
+      cartCount.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+      
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `
+          <div class="text-center py-8 text-gray-500 text-sm">
+            <svg class="w-12 h-12 mx-auto text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <span>Keranjang masih kosong. Gunakan estimator di samping atau pilih katalog di bawah.</span>
+          </div>
+        `;
+        document.getElementById('cartSubtotal').innerText = 'Rp 0';
+        document.getElementById('cartTax').innerText = 'Rp 0';
+        document.getElementById('cartTotal').innerText = 'Rp 0';
+        
+        checkoutBtn.disabled = true;
+        checkoutBtn.className = "w-full mt-5 py-3 bg-gray-300 text-gray-500 cursor-not-allowed font-bold rounded-xl flex items-center justify-center space-x-2 transition-all shadow-sm";
+        return;
+      }
+      
+      cartContainer.innerHTML = '';
+      let subtotal = 0;
+      
+      cart.forEach((item, index) => {
+        const itemCost = item.quantity * item.price;
+        subtotal += itemCost;
+        
+        const cartItemRow = document.createElement('div');
+        cartItemRow.className = "flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0 text-sm";
+        cartItemRow.innerHTML = `
+          <div class="max-w-[60%]">
+            <span class="font-bold text-darkText block truncate">${item.name}</span>
+            <span class="text-xs text-gray-500">${formatRupiah(item.price)} / ${item.unit}</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
+              <button onclick="adjustCartQty(${index}, -1)" class="px-2 py-1 hover:bg-gray-200 font-bold focus:outline-none">-</button>
+              <span class="px-2 py-1 text-xs font-semibold">${item.quantity}</span>
+              <button onclick="adjustCartQty(${index}, 1)" class="px-2 py-1 hover:bg-gray-200 font-bold focus:outline-none">+</button>
+            </div>
+            <button onclick="removeCartItem(${index})" class="text-red-500 hover:text-red-700 p-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        `;
+        cartContainer.appendChild(cartItemRow);
+      });
+
+      // Calculate totals
+      const tax = subtotal * 0.11; // 11% PPN
+      
+      // Shipping cost based on selection
+      const shippingSelect = document.getElementById('cartShippingSelect');
+      let shippingCost = 0;
+      if (shippingSelect.value === 'pickup') shippingCost = 150000;
+      else if (shippingSelect.value === 'truk') shippingCost = 350000;
+      
+      const total = subtotal + tax + shippingCost;
+      
+      document.getElementById('cartSubtotal').innerText = formatRupiah(subtotal);
+      document.getElementById('cartTax').innerText = formatRupiah(tax);
+      document.getElementById('cartTotal').innerText = formatRupiah(total);
+      
+      // Enable checkout button
+      checkoutBtn.disabled = false;
+      checkoutBtn.className = "w-full mt-5 py-3 bg-brandAmber text-darkText font-extrabold rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md hover:bg-opacity-90 cursor-pointer";
+    }
+
+    function addEstimateToCart() {
+      if (Object.keys(currentEstimations).length === 0) return;
+      
+      let addedCount = 0;
+      for (const [key, item] of Object.entries(currentEstimations)) {
+        if (item.qty <= 0) continue;
+        
+        // Check if item already in cart
+        const existingIdx = cart.findIndex(c => c.id === item.db.id);
+        if (existingIdx > -1) {
+          cart[existingIdx].quantity += item.qty;
+        } else {
+          cart.push({
+            id: item.db.id,
+            name: item.db.name,
+            price: item.db.price,
+            unit: item.db.unit,
+            quantity: item.qty
+          });
+        }
+        addedCount++;
+      }
+      
+      if (addedCount > 0) {
+        updateCartUI();
+        // Toast Notification or Animation
+        const cartBtn = document.getElementById('cartBtn');
+        cartBtn.classList.add('scale-125', 'bg-brandAmber');
+        setTimeout(() => {
+          cartBtn.classList.remove('scale-125', 'bg-brandAmber');
+        }, 300);
+      }
+    }
+
+    function addToCartDirect(productId) {
+      const product = MATERIAL_DB[productId];
+      if (!product) return;
+      
+      const existingIdx = cart.findIndex(c => c.id === product.id);
+      if (existingIdx > -1) {
+        cart[existingIdx].quantity += 1;
+      } else {
+        cart.push({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          unit: product.unit,
+          quantity: 1
+        });
+      }
+      updateCartUI();
+    }
+
+    function adjustCartQty(index, amount) {
+      cart[index].quantity += amount;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    // Toggle Cart open view (scrolls smooth on mobile or opens cart panel)
+    function toggleCart() {
+      const section = document.getElementById('cartSection');
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // add dynamic background highlighting briefly to draw user attention
+      section.classList.add('ring-4', 'ring-brandForestGreen');
+      setTimeout(() => {
+        section.classList.remove('ring-4', 'ring-brandForestGreen');
+      }, 800);
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCartUI();
+    }
+
+    // --- CHECKOUT LOGIC & WHATSAPP INTEGRATION ---
+    function triggerCheckout() {
+      if (cart.length === 0) return;
+      
+      const shippingSelect = document.getElementById('cartShippingSelect');
+      let shippingText = "Ambil Sendiri";
+      if (shippingSelect.value === 'pickup') shippingText = "Layanan Pick-up (Rp 150.000)";
+      else if (shippingSelect.value === 'truk') shippingText = "Layanan Truk (Rp 350.000)";
+      
+      document.getElementById('modalShippingType').innerText = shippingText;
+      document.getElementById('modalTotalPay').innerText = document.getElementById('cartTotal').innerText;
+      
+      document.getElementById('checkoutModal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    function submitOrder(event) {
+      event.preventDefault();
+      
+      const inputs = event.target.elements;
+      const nama = inputs[0].value;
+      const telp = inputs[1].value;
+      const alamat = inputs[2].value;
+      
+      const shippingSelect = document.getElementById('cartShippingSelect');
+      let shippingText = "Ambil Sendiri";
+      if (shippingSelect.value === 'pickup') shippingText = "Pick-up";
+      else if (shippingSelect.value === 'truk') shippingText = "Truk";
+
+      // Formulate WhatsApp message text
+      let message = `Halo BuildTech Material, saya ingin memesan bahan bangunan berikut:\n\n`;
+      message += `*Data Pemesan:*\n`;
+      message += `- Nama: ${nama}\n`;
+      message += `- Telp: ${telp}\n`;
+      message += `- Alamat Proyek: ${alamat}\n\n`;
+      
+      message += `*Daftar Belanja:*\n`;
+      let subtotal = 0;
+      cart.forEach((item) => {
+        const cost = item.quantity * item.price;
+        subtotal += cost;
+        message += `- ${item.name} (${item.quantity} ${item.unit}) : ${formatRupiah(cost)}\n`;
+      });
+      
+      const tax = subtotal * 0.11;
+      let shippingCost = 0;
+      if (shippingSelect.value === 'pickup') shippingCost = 150000;
+      else if (shippingSelect.value === 'truk') shippingCost = 350000;
+      
+      message += `\nSubtotal: ${formatRupiah(subtotal)}`;
+      message += `\nPPN (11%): ${formatRupiah(tax)}`;
+      message += `\nPengiriman (${shippingText}): ${formatRupiah(shippingCost)}`;
+      message += `\n*TOTAL BAYAR: ${formatRupiah(subtotal + tax + shippingCost)}*\n\n`;
+      message += `Mohon segera diproses dan dikirimkan tagihan resminya. Terima kasih!`;
+      
+      // Open WhatsApp URL
+      const encodedMsg = encodeURIComponent(message);
+      const waUrl = `https://wa.me/6280809090?text=${encodedMsg}`;
+      window.open(waUrl, '_blank');
+      
+      closeCheckoutModal();
+      clearCart();
+    }
+
+    // --- CATALOG PRODUCT GENERATION & FILTER ---
+    function buildCatalog() {
+      const grid = document.getElementById('catalogGrid');
+      grid.innerHTML = '';
+      
+      for (const [key, item] of Object.entries(MATERIAL_DB)) {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col justify-between group product-card";
+        card.dataset.category = item.category;
+        
+        card.innerHTML = `
+          <div>
+            <div class="h-32 bg-gray-100 overflow-hidden relative">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 left-2 px-2 py-0.5 text-[10px] font-bold rounded bg-brandDarkGreen text-white capitalize">${item.category}</span>
+            </div>
+            <div class="p-3.5 space-y-1">
+              <h4 class="font-bold text-sm text-darkText line-clamp-2 min-h-[40px] leading-tight">${item.name}</h4>
+              <p class="text-xs text-gray-500">Satuan: ${item.unit}</p>
+            </div>
+          </div>
+          <div class="p-3.5 pt-0">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-brandForestGreen">${formatRupiah(item.price)}</span>
+            </div>
+            <button onclick="addToCartDirect('${item.id}')" class="w-full py-2 bg-gray-100 hover:bg-brandForestGreen hover:text-white text-brandForestGreen font-bold text-xs rounded-lg transition-all flex items-center justify-center space-x-1.5 focus:outline-none">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span>Tambah</span>
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    function filterCatalog(category) {
+      // Reset filter button styles
+      ['btn-filter-semua', 'btn-filter-struktur', 'btn-filter-curah', 'btn-filter-besi'].forEach(id => {
+        const btn = document.getElementById(id);
+        btn.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-white text-gray-600 hover:text-brandForestGreen border border-gray-200 transition-all focus:outline-none";
+      });
+      
+      // Apply active style to selected button
+      const activeBtn = document.getElementById('btn-filter-' + category);
+      activeBtn.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-brandForestGreen text-white shadow-sm transition-all focus:outline-none";
+      
+      // Filter the grid items
+      const cards = document.querySelectorAll('.product-card');
+      cards.forEach(card => {
+        if (category === 'semua' || card.dataset.category === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
